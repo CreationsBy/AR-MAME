@@ -1,10 +1,10 @@
 # Compatibility and milestone status
 
-No ROM gameplay or physical iPhone AR validation has been performed by this workspace. A build artifact proves compilation and packaging only. Tests using synthetic frames or machine metadata do not prove a game runs.
+No commercial ROM gameplay or physical iPhone AR validation has been performed by this workspace. The native build, metadata checks, and original emulated Z80 diagnostic passed; see [verified results](VALIDATION.md). The original diagnostic proves that its own CPU program, input, graphics, and state path execute through MAME. It does not establish commercial-game or physical AR compatibility.
 
 | Area | Present implementation | Remaining validation/work |
 | --- | --- | --- |
-| Genuine emulation | Pinned MAME 2003-Plus, ARM64 native host | Successful cloud compile and original ROM gameplay on iPhone |
+| Genuine emulation | Pinned MAME 2003-Plus; ARM64 build and original Z80 host diagnostic passed | Commercial ROM gameplay on iPhone |
 | ROM import | ZIP files and folder trees, DAT dependency filenames | Core audit/error behavior, large transfers, merged/clone arrangements |
 | 7z | Explicitly rejected with conversion instructions | Core/archive adapter supporting 7z |
 | CHD/BIOS | Preserved directory trees, core reader | Version-specific CHDs and machine dependency testing |
@@ -18,7 +18,7 @@ No ROM gameplay or physical iPhone AR validation has been performed by this work
 | Occlusion | Optional local LiDAR depth-only mesh | Real device support and outdoor mesh accuracy |
 | Optimization | Cached/shared meshes, distance culling, bounded update queue | LOD, streaming, floating origin, instancing, adaptive quality |
 | Audio/states | Core sample-rate playback and serialize/unserialize | Per-machine timing, audio interruptions, reliable state restoration |
-| IPA | macOS CI build and unsigned package scripts | Successful run, Windows re-sign/install, phone launch |
+| IPA | macOS CI build passed; unsigned ARM64 IPA produced and inspected | Windows re-sign/install and phone launch |
 
 Game expectations are source-level intentions only:
 

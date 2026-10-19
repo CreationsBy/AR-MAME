@@ -17,4 +17,4 @@ Record phone model, iOS version, core revision, application commit, selected ROM
 10. Save, advance gameplay, restore, and confirm graphics immediately match restored state while placement stays fixed. Confirm incompatible/corrupt states fail clearly.
 11. Check Bluetooth input and disconnect while holding controls. Check audio after route changes and pauses. Measure emulation speed, audio underruns, mesh draw cost, memory, battery, and thermal throttling for at least 15 minutes.
 
-Current completed local checks: Python tooling unit tests only. See GitHub Actions for actual cloud results. No physical device results are prefilled.
+Completed checks: four local/cloud Python tooling tests, five cloud Swift tests, native machine metadata checks, an original Z80 runtime diagnostic including input and state restoration, and a successful ARM64 iOS build. The downloaded IPA's executable and required resources were inspected locally. See [verified results](VALIDATION.md) for the source commit, run, artifact, and checksum. No physical device results are prefilled.

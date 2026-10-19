@@ -2,7 +2,7 @@
 
 A native iOS arcade emulator and experimental spatial renderer, developed from Windows and built on GitHub's macOS runners. Source repository: https://github.com/CreationsBy/AR-MAME.
 
-**Status: initial implementation, not a validated universal 3D emulator.** The app integrates a real, pinned MAME 2003-Plus core. Successful iOS compilation, ROM gameplay, audio accuracy, signing, and physical AR must be verified separately. No commercial ROMs are included.
+**Status: initial implementation, not a validated universal 3D emulator.** The ARM64 iOS build, logic tests, native input metadata checks, and original Z80 runtime diagnostic have passed in [GitHub Actions](https://github.com/CreationsBy/AR-MAME/actions/runs/39341218165). An unsigned IPA was produced and inspected. Commercial ROM gameplay, audio accuracy, signing, and physical iPhone AR remain untested. No commercial ROMs are included. See [verified results and download](docs/VALIDATION.md).
 
 ## Start from Windows
 
@@ -46,7 +46,7 @@ tests                         logic, packaging, dependency metadata checks
 .github/workflows             remote native build and validation
 ```
 
-Read [architecture](docs/ARCHITECTURE.md), [device testing](docs/DEVICE-TESTING.md), and [license obligations](docs/LICENSING.md) before extending or redistributing the project.
+Read [architecture](docs/ARCHITECTURE.md), [device testing](docs/DEVICE-TESTING.md), and [license obligations](docs/LICENSING.md) before extending or redistributing the project. The full requested roadmap is retained in [the original product specification](docs/PRODUCT-SPEC.md).
 
 ## Sources
 
