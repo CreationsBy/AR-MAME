@@ -35,6 +35,8 @@ targets:
         HEADER_SEARCH_PATHS:
           - $(SRCROOT)/mame
           - $(SRCROOT)/vendor/mame2003-plus/src/libretro-common/include
+        LIBRARY_SEARCH_PATHS:
+          - $(SRCROOT)/build/core
         OTHER_LDFLAGS:
           - -lcompression
           - -lz
