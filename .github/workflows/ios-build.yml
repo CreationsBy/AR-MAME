@@ -1,0 +1,57 @@
+name: iOS IPA
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  logic:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - run: swift test
+  core-metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/prepare_core.py
+      - run: make -C vendor/mame2003-plus -j3 platform=unix 'PLATCFLAGS=-fcommon -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=int-conversion'
+      - run: python3 scripts/test_core.py vendor/mame2003-plus/mame2003_plus_libretro.so
+      - run: python3 scripts/generate_catalog.py
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain diagnostics
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          swift --version
+      - name: Install project generator
+        run: brew install xcodegen
+      - name: Build ARM64 core, iOS app, and unsigned IPA
+        run: bash scripts/build_ios.sh
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ARMAME-unsigned
+          path: build/artifacts/ARMAME-unsigned.ipa
+          if-no-files-found: error
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-diagnostics
+          path: |
+            build/xcodebuild.log
+            mame/core.lock.json
+          if-no-files-found: warn

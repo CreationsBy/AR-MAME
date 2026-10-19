@@ -1,0 +1,14 @@
+build/
+vendor/
+*.xcodeproj/
+*.xcworkspace/
+.DS_Store
+*.ipa
+*.p12
+*.mobileprovision
+*.cer
+*.log
+__pycache__/
+.venv/
+.build/
+

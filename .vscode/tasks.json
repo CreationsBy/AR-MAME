@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Validate tooling",
+      "type": "shell",
+      "command": "python",
+      "args": ["-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py", "-v"],
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

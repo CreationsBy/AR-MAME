@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "pacman-hardware-v1",
+  "status": "experimental-unverified-on-device",
+  "games": ["pacman", "puckman"],
+  "hardware": "Namco Pac-Man, fixed 36x28 tiles, 8x8 chars, 16x16 sprites",
+  "source": "decoded MAME graphics, videoram, colorram, spriteram, spriteram_2",
+  "nativeBounds": [288, 224],
+  "displayRotationDegrees": 90,
+  "worldPlane": "horizontal",
+  "indoorWidthMeters": 0.6,
+  "outdoorWidthMeters": 25,
+  "wallHeightNormalized": 0.04,
+  "spriteHeightNormalized": 0.028,
+  "surfaceHeightNormalized": 0.006,
+  "limitations": [
+    "Palette-based wall classification is heuristic, including attract-screen text.",
+    "Tunnel sprite wrap copies, cocktail flip, and all visual priority edge cases are not implemented.",
+    "Only the currently visible board is reconstructed; no inferred hidden level geometry.",
+    "SceneKit meshes use shared cached geometry and Metal; GPU instancing is not explicitly implemented."
+  ]
+}

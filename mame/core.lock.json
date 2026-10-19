@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/libretro/mame2003-plus-libretro.git",
+  "revision": "0aaf055d11a5e144598711de626f9e0e558f49d5",
+  "name": "MAME 2003-Plus",
+  "romSet": "MAME 2003-Plus (not current MAME)",
+  "execution": "ARM64 interpreters; no JIT entitlement"
+}
