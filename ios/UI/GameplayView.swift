@@ -61,8 +61,9 @@ struct GameplayView: View {
         .toolbar(.hidden, for: .navigationBar)
         .statusBarHidden().persistentSystemOverlays(.hidden)
         .onAppear {
+            world.profile = ReconstructionProfile.load(game: session.game.name)
             world.changeMode(initialMode)
-            world.renderMode = session.game.hasHardwareProfile ? .hardware : .original
+            world.renderMode = session.game.hasHardwareProfile && world.profile != nil ? .hardware : .original
             session.start()
         }
         .onDisappear { preferences.save(game: session.game.name); session.stop() }
@@ -94,10 +95,17 @@ struct GameplayView: View {
                     ForEach(ARMode.allCases) { Text($0.rawValue).tag($0) }
                 }.pickerStyle(.segmented)
                 Text("World width: \(world.width, specifier: "%.2f") meters").font(.headline)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(scalePresets, id: \.name) { preset in
+                            Button(preset.name) { world.width = preset.meters }.buttonStyle(.bordered)
+                        }
+                    }
+                }
                 Slider(value: $world.width, in: 0.1...100)
                 HStack {
                     ForEach([0.2,0.6,1,5,10,25,50,100], id: \.self) { size in
-                        Button(size < 1 ? "\(size, specifier: "%.1f")" : "\(Int(size))") { world.width = size }.font(.caption)
+                        Button(size < 1 ? String(format: "%.1f", size) : "\(Int(size))") { world.width = size }.font(.caption)
                     }
                 }
                 HStack {
@@ -152,6 +160,10 @@ struct GameplayView: View {
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24))
         .padding(16)
         .onDisappear { preferences.save(game: session.game.name) }
+    }
+    private var scalePresets: [(name: String, meters: Double)] {
+        world.mode == .miniature ? [("Tiny",0.2),("Small",0.4),("Medium",0.6),("Large",1)] :
+            [("Miniature",0.6),("Room",5),("House",10),("Giant",25),("Massive",100)]
     }
 }
 

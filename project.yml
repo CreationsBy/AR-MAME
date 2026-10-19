@@ -21,7 +21,10 @@ targets:
       - path: ios
         excludes:
           - Resources
+          - Info.plist
       - path: ios/Resources
+        buildPhase: resources
+      - path: reconstruction/profiles
         buildPhase: resources
     settings:
       base:

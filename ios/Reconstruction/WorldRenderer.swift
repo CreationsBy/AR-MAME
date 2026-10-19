@@ -2,6 +2,7 @@ import SceneKit
 import UIKit
 
 final class WorldRenderer {
+    var profile: ReconstructionProfile?
     let root = SCNNode()
     private let content = SCNNode()
     private var objects: [Int: SCNNode] = [:]
@@ -70,7 +71,8 @@ final class WorldRenderer {
             let color = run.rgba
             let r = CGFloat(color & 255) / 255, g = CGFloat((color >> 8) & 255) / 255, b = CGFloat((color >> 16) & 255) / 255
             let isWall = !key.sprite && b > 0.35 && b > r * 1.25 && b > g * 1.15
-            let height: CGFloat = key.sprite ? 0.028 : isWall ? 0.04 : 0.006
+            let height = CGFloat(key.sprite ? (profile?.spriteHeightNormalized ?? 0.028) :
+                isWall ? (profile?.wallHeightNormalized ?? 0.04) : (profile?.surfaceHeightNormalized ?? 0.006))
             let box = SCNBox(width: 1/224, height: height, length: CGFloat(run.length)/224, chamferRadius: 0)
             if materials[color] == nil {
                 let material = SCNMaterial()

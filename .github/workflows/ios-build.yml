@@ -38,6 +38,13 @@ jobs:
           swift --version
       - name: Install project generator
         run: brew install xcodegen
+      - name: Cache compiled ARM64 core
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/mame2003-plus
+            build/core
+          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/build_ios.sh') }}
       - name: Build ARM64 core, iOS app, and unsigned IPA
         run: bash scripts/build_ios.sh
       - name: Upload unsigned IPA
@@ -53,5 +60,6 @@ jobs:
           name: ios-diagnostics
           path: |
             build/xcodebuild.log
+            build/core-build.log
             mame/core.lock.json
           if-no-files-found: warn

@@ -9,7 +9,7 @@ make -C vendor/mame2003-plus -j3 armame-static \
   platform=ios-arm64 ARCH=arm64 CPU_ARCH=arm64 IOSSDK="$sdk" \
   MINVERSION=-miphoneos-version-min=17.0 \
   'PLATCFLAGS=-D__IOS__ -fcommon -Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types' \
-  ARMAME_ARCHIVE="$PWD/build/core/libarmame.a"
+  ARMAME_ARCHIVE="$PWD/build/core/libarmame.a" 2>&1 | tee build/core-build.log
 xcrun lipo -info build/core/libarmame.a
 xcodegen generate --spec project.yml
 xcodebuild -project ARMAME.xcodeproj -scheme ARMAME -configuration Release \

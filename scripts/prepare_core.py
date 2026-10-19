@@ -23,6 +23,13 @@ def main():
     # Linux validation needs our extra read-only ABI visible alongside libretro.
     exports = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:link.T"], text=True)
     (CORE / "link.T").write_text(exports.replace("global: retro_*;", "global: retro_*; am_machine; am_visuals;"))
+    # Bundled legacy zlib treats the modern TARGET_OS_MAC macro as classic Mac OS,
+    # redefining fdopen before Apple's stdio declarations. Darwin has real fdopen.
+    zutil = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:src/lib/zlib/zutil.h"], text=True)
+    old_guard = "#if defined(MACOS) || defined(TARGET_OS_MAC)"
+    if old_guard not in zutil:
+        raise RuntimeError("Upstream zlib platform guard changed; review the compatibility patch")
+    (CORE / "src/lib/zlib/zutil.h").write_text(zutil.replace(old_guard, "#if defined(MACOS) || (defined(TARGET_OS_MAC) && !defined(__APPLE__))"))
     original = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:Makefile.common"], text=True)
     (CORE / "Makefile.common").write_text(original + "\nSOURCES_C += $(CORE_DIR)/ARCore.c\n")
     original = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:Makefile"], text=True)

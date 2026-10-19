@@ -3,6 +3,7 @@ import ARKit
 import SceneKit
 
 final class ARWorld: ObservableObject {
+    var profile: ReconstructionProfile?
     @Published var mode: ARMode = .miniature
     @Published var width = 0.6
     @Published var angle = 0.0
@@ -38,6 +39,7 @@ struct FullscreenARView: UIViewRepresentable {
     }
     func updateUIView(_ view: ARSCNView, context: Context) {
         let coordinator = context.coordinator
+        coordinator.renderer.profile = world.profile
         if coordinator.resetID != world.resetID {
             coordinator.resetID = world.resetID; coordinator.removePlacement()
         }

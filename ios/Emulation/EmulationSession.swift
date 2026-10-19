@@ -156,7 +156,17 @@ final class EmulationSession: ObservableObject {
                 if pad.buttonOptions?.isPressed == true { codes.insert(2) }
                 codes.formUnion(SpatialMath.directions(x: Double(pad.leftThumbstick.xAxis.value),
                     y: -Double(pad.leftThumbstick.yAxis.value), fourWay: false, deadZone: 0.2))
-                Task { @MainActor in self?.digital(source: "controller", codes: codes) }
+                Task { @MainActor in
+                    guard let self else { return }
+                    if (self.machine["fourWay"] as? NSNumber)?.boolValue == true {
+                        let directions = codes.intersection([4,5,6,7])
+                        if directions.count > 1 {
+                            let first = directions.sorted().first!
+                            codes.subtract([4,5,6,7]); codes.insert(first)
+                        }
+                    }
+                    self.digital(source: "controller", codes: codes)
+                }
             }
         }
         GCController.controllers().forEach(connect)
