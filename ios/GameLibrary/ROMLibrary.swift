@@ -25,6 +25,16 @@ final class ROMLibrary: ObservableObject {
             LibraryGame(url: $0, record: catalog[$0.deletingPathExtension().lastPathComponent.lowercased()])
         }.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
     }
+    func installDiagnostic() -> LibraryGame? {
+        let target = root.appendingPathComponent("armtest.zip")
+        if !FileManager.default.fileExists(atPath: target.path),
+           let source = Bundle.main.url(forResource: "armtest", withExtension: "zip") {
+            do { try FileManager.default.copyItem(at: source, to: target) }
+            catch { message = error.localizedDescription; return nil }
+        }
+        refresh()
+        return games.first { $0.name == "armtest" }
+    }
     func importItems(_ urls: [URL]) {
         var imported = 0
         var failures: [String] = []

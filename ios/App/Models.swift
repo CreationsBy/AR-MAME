@@ -35,7 +35,7 @@ struct LibraryGame: Identifiable {
     var id: String { url.lastPathComponent }
     var name: String { url.deletingPathExtension().lastPathComponent }
     var title: String { record?.title ?? name }
-    var hasHardwareProfile: Bool { ["pacman", "puckman"].contains(name) }
+    var hasHardwareProfile: Bool { ["pacman", "puckman", "armtest"].contains(name) }
 }
 struct ControlDescriptor: Identifiable {
     var port: UInt32

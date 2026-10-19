@@ -66,7 +66,7 @@ size_t am_visuals(AMVisual *out, size_t capacity)
     if (!Machine || !Machine->gamedrv || !Machine->game_colortable || !videoram || !colorram) return 0;
     name = Machine->gamedrv->name;
     /* Explicitly scoped: other Pac-Man-family hardware has different banks/scrolling. */
-    if (strcmp(name, "pacman") && strcmp(name, "puckman")) return 0;
+    if (strcmp(name, "pacman") && strcmp(name, "puckman") && strcmp(name, "armtest")) return 0;
     for (row = 0; row < 28; row++) for (col = 0; col < 36; col++) {
         int r = row + 2, c = col - 2;
         AMVisual *v;

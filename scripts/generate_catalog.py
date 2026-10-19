@@ -30,6 +30,8 @@ def main():
     records = records_from_xml(source)
     if len(records) < 1000 or not any(r["name"] == "pacman" for r in records):
         raise RuntimeError("Missing or incompatible upstream DAT")
+    records.append({"name": "armtest", "title": "AR-MAME Original Z80 Diagnostic", "year": "2026",
+                    "manufacturer": "AR-MAME", "parent": "", "dependencies": [], "disks": []})
     resources = ROOT / "ios/Resources"
     resources.mkdir(parents=True, exist_ok=True)
     (resources / "machines.json").write_text(json.dumps(records, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

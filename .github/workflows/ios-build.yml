@@ -25,6 +25,7 @@ jobs:
       - run: python3 scripts/prepare_core.py
       - run: make -C vendor/mame2003-plus -j3 platform=unix 'PLATCFLAGS=-fcommon -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=int-conversion'
       - run: python3 scripts/test_core.py vendor/mame2003-plus/mame2003_plus_libretro.so
+      - run: python3 scripts/smoke_diagnostic.py vendor/mame2003-plus/mame2003_plus_libretro.so
       - run: python3 scripts/generate_catalog.py
   ios:
     runs-on: macos-15
@@ -44,7 +45,7 @@ jobs:
           path: |
             vendor/mame2003-plus
             build/core
-          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/build_ios.sh') }}
+          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/make_diagnostic.py', 'scripts/build_ios.sh') }}
       - name: Build ARM64 core, iOS app, and unsigned IPA
         run: bash scripts/build_ios.sh
       - name: Upload unsigned IPA
@@ -70,4 +71,4 @@ jobs:
           path: |
             vendor/mame2003-plus
             build/core
-          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/build_ios.sh') }}
+          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/make_diagnostic.py', 'scripts/build_ios.sh') }}

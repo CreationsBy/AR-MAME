@@ -11,4 +11,7 @@ vendor/
 __pycache__/
 .venv/
 .build/
+ios/Resources/armtest.zip
+ios/Resources/machines.json
+ios/Resources/core-*
 

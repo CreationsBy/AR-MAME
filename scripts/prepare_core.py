@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+from make_diagnostic import driver_source, write_container
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE = ROOT / "vendor" / "mame2003-plus"
@@ -30,6 +31,14 @@ def main():
     if old_guard not in zutil:
         raise RuntimeError("Upstream zlib platform guard changed; review the compatibility patch")
     (CORE / "src/lib/zlib/zutil.h").write_text(zutil.replace(old_guard, "#if defined(MACOS) || (defined(TARGET_OS_MAC) && !defined(__APPLE__))"))
+    pacman = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:src/drivers/pacman.c"], text=True)
+    (CORE / "src/drivers/pacman.c").write_text(pacman + driver_source())
+    driver = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:src/driver.c"], text=True)
+    marker = "DRIVER( pacman )"
+    if marker not in driver:
+        raise RuntimeError("Core driver registration changed")
+    (CORE / "src/driver.c").write_text(driver.replace(marker, "DRIVER( armtest )\n\t" + marker))
+    write_container(ROOT / "ios/Resources/armtest.zip")
     original = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:Makefile.common"], text=True)
     (CORE / "Makefile.common").write_text(original + "\nSOURCES_C += $(CORE_DIR)/ARCore.c\n")
     original = subprocess.check_output(["git", "-C", str(CORE), "show", "HEAD:Makefile"], text=True)

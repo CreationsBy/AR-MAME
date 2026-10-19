@@ -5,6 +5,7 @@ Use legally obtained ROMs that match the exact MAME 2003-Plus core. Do not add R
 Record phone model, iOS version, core revision, application commit, selected ROM set/hashes, controller, thermal state, and indoor/outdoor conditions for every result.
 
 1. Confirm all three cloud jobs pass. Inspect the IPA for `Payload/ARMAME.app/ARMAME`, generated machine catalog, and core license files. Re-sign and install on a physical iPhone.
+   Start with **Try Original Z80 Diagnostic**. Verify its generated board and moving yellow sprite in flat and hardware 3D modes before importing a commercial set. This test does not validate a commercial game's emulation or reconstructed appearance.
 2. Import a known-compatible ZIP. Test missing parent/BIOS and wrong-version errors. Test a properly named machine folder with matching CHD version. Confirm unsupported 7z and loose CHD guidance.
 3. Verify original rendering, boot, Coin/Start, all required actions, native screen orientation, timing, scoring, audio pitch, and pause/reset. Compare against the same pinned core on a reference platform.
 4. For pacman/puckman, switch to the hardware 3D profile. Verify maze alignment, pellets disappearing, sprite positions, palette, animation, attract screens, death/restart, tunnel transitions, and level changes against the flat output. Log known visual mismatches rather than declaring support.

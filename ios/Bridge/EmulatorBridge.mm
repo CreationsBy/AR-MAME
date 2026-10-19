@@ -55,6 +55,9 @@ static bool environment(unsigned command, void *data) {
                 value = value.substr(0, value.find('|'));
                 std::string name(variable->key);
                 if (name.find("input_interface") != std::string::npos) value = "retropad";
+                // MAME's startup text is part of its flat UI, not hardware objects.
+                // Skip blocking startup panels; launch/audit failures still propagate.
+                if (name.find("skip_disclaimer") != std::string::npos || name.find("skip_warnings") != std::string::npos) value = "enabled";
                 if (name.find("frameskip") != std::string::npos) value = "disabled";
                 variables[name] = value;
             }

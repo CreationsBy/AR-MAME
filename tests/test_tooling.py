@@ -12,6 +12,15 @@ def module(name):
     return result
 
 class ToolingTests(unittest.TestCase):
+    def testDiagnosticProgramFitsHardwareAndHasNoCommercialLoads(self):
+        diagnostic = module("make_diagnostic")
+        self.assertLess(len(diagnostic.program()), 0x1000)
+        self.assertEqual(len(diagnostic.board()), 1024)
+        self.assertIn(1, diagnostic.board())
+        source = diagnostic.driver_source()
+        self.assertNotIn("ROM_LOAD", source)
+        self.assertIn("GAME(2026, armtest", source)
+
     def testCatalogPreservesBiosParentAndDeviceRequirements(self):
         xml = '''<mame><game name="clone" cloneof="parent" romof="bios"><description>Clone</description>
         <year>1980</year><manufacturer>Example</manufacturer><device_ref name="device"/>

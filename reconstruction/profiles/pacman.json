@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "pacman-hardware-v1",
   "status": "experimental-unverified-on-device",
-  "games": ["pacman", "puckman"],
+  "games": ["pacman", "puckman", "armtest"],
   "hardware": "Namco Pac-Man, fixed 36x28 tiles, 8x8 chars, 16x16 sprites",
   "source": "decoded MAME graphics, videoram, colorram, spriteram, spriteram_2",
   "nativeBounds": [288, 224],

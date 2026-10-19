@@ -14,6 +14,8 @@ Digital touch and external-controller sources are combined before delivery, so l
 
 For the scoped Pac-Man sets, `ARCore.c` reads the driver's tilemap mapping, generic sprite RAM, decoded gfx planes, and palette. Each tile/sprite has a stable ID. The renderer builds cached geometry from contiguous runs of equal-color opaque pixels. Blue-dominant tile runs become tall walls; other tile content is shallow; sprite content becomes separate animated extruded objects. This classification is experimental and can misclassify text.
 
+`scripts/make_diagnostic.py` also generates an original Z80 program, board, and solid-color glyphs. The build registers a separate `armtest` machine on this hardware using ROM_FILL entries. The diagnostic moves a yellow sprite by reading the actual emulated input port. Its ZIP is only an original description container, with no required commercial ROM members. This provides a ROM-free test of CPU execution, controls, video/audio callbacks, state restore, and hardware extraction; it is not a substitute for testing original games. The frontend bypasses MAME's blocking flat startup panels so they cannot invisibly block hardware AR presentation; ROM audit/load failures still propagate.
+
 The 288x224 native hardware coordinates map into a horizontal normalized world:
 
 ```text

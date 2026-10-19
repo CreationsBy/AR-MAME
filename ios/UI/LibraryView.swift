@@ -34,6 +34,11 @@ struct LibraryView: View {
                                 .buttonStyle(.borderedProminent).tint(.mint).foregroundStyle(.black)
                             Button { folderImporter = true } label: { Label("Import Folder", systemImage: "folder") }.buttonStyle(.bordered)
                         }
+                        Button { selected = library.installDiagnostic() } label: {
+                            Label("Try Original Z80 Diagnostic", systemImage: "cpu")
+                        }.font(.callout)
+                        Text("A generated test board with an input-controlled sprite, running on MAME. No commercial ROM required.")
+                            .font(.caption).foregroundStyle(.secondary)
                         if !library.message.isEmpty { Text(library.message).font(.caption).foregroundStyle(.secondary) }
                         HStack { Text("GAME LIBRARY").font(.caption.bold()).tracking(2); Spacer(); Text("\(library.games.count) sets").font(.caption).foregroundStyle(.secondary) }
                         if library.games.isEmpty {

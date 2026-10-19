@@ -21,6 +21,7 @@ A native iOS arcade emulator and experimental spatial renderer, developed from W
 - Full-screen `ARSCNView` with Metal, camera behind safe-area-aware transparent controls, surface raycasts, actual AR anchors, and explicit placement confirmation.
 - Indoor and outdoor visual scaling (0.1–250 meters wide), rotation, rendering-distance culling, repositioning, tracking messages, and optional LiDAR scene-mesh occlusion.
 - A read-only hardware graphics adapter for **pacman** and **puckman**: separate tile/sprite identities, decoded original graphics/palette, cached meshes of colored voxel runs, raised walls and animated extruded sprites. Emulation remains authoritative.
+- An original generated Z80 diagnostic (`armtest`) on the same emulated hardware, available through **Try Original Z80 Diagnostic**. Its board, colored sprite, and input response use the MAME CPU/video/input path; it contains no commercial ROM data and does not reproduce Pac-Man gameplay.
 - Experimental color-component 3D reconstruction for other visible framebuffers, and a clearly labeled original flat fallback. Neither path can recover hidden levels automatically.
 - Cloud build of the actual core, XcodeGen native app project, unsigned IPA packaging, native metadata checks, Swift logic tests, and Python tooling tests.
 

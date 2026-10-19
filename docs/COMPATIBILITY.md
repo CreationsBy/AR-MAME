@@ -24,6 +24,7 @@ Game expectations are source-level intentions only:
 
 | Set | Expected digital input | 3D status |
 | --- | --- | --- |
+| armtest | Four-way, original emulated input diagnostic | Experimental hardware profile; no commercial ROMs |
 | pacman / puckman | Four-way + Coin + Start | Experimental hardware profile |
 | sf2 | Eight-way, core-labeled six actions | Generic experiment / flat fallback |
 | mslug | Eight-way, core-labeled actions | Generic experiment / flat fallback |

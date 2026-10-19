@@ -92,8 +92,8 @@ private struct JoystickView: View {
         .contentShape(Circle())
         .gesture(DragGesture(minimumDistance: 0)
             .onChanged { value in
-                let x = max(-1, min(1, (value.location.x-66)/48 * sensitivity))
-                let y = max(-1, min(1, (value.location.y-66)/48 * sensitivity))
+                let x = max(-1, min(1, (Double(value.location.x)-66)/48 * sensitivity))
+                let y = max(-1, min(1, (Double(value.location.y)-66)/48 * sensitivity))
                 point = CGSize(width: x*35, height: y*35)
                 changed(SpatialMath.directions(x: x, y: y, fourWay: fourWay, deadZone: deadZone))
             }
