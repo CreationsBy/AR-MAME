@@ -63,3 +63,11 @@ jobs:
             build/core-build.log
             mame/core.lock.json
           if-no-files-found: warn
+      - name: Preserve compiled core after app build failures
+        if: failure()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            vendor/mame2003-plus
+            build/core
+          key: armame-ios-arm64-v1-${{ hashFiles('mame/**', 'scripts/prepare_core.py', 'scripts/build_ios.sh') }}

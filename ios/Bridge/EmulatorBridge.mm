@@ -20,6 +20,7 @@ static uint64_t key(unsigned p, unsigned d, unsigned i, unsigned id) {
     return ((uint64_t)p << 48) | ((uint64_t)(d & RETRO_DEVICE_MASK) << 32) | ((uint64_t)i << 16) | id;
 }
 static void logger(enum retro_log_level level, const char *format, ...) {
+    if (level < RETRO_LOG_INFO) return;
     char buffer[4096]; va_list args; va_start(args, format);
     vsnprintf(buffer, sizeof(buffer), format, args); va_end(args);
     NSLog(@"MAME: %s", buffer);

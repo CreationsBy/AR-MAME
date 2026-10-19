@@ -136,6 +136,9 @@ final class EmulationSession: ObservableObject {
             do {
                 let state = try Data(contentsOf: saveURL)
                 guard core.restoreState(state) else { throw LibraryError.detail("State rejected by this machine/core revision.") }
+                // Many cores serialize machine state without the frontend framebuffer.
+                // Advance one native frame to refresh both render paths, even while paused.
+                core.runFrame()
                 let next = EmulatedFrame(image: core.frameImage(), objects: core.visualObjects().compactMap(VisualObject.init))
                 DispatchQueue.main.async { self.frame = next }
             } catch { DispatchQueue.main.async { self.error = error.localizedDescription } }

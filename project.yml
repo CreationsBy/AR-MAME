@@ -40,7 +40,8 @@ targets:
           - -lz
           - -liconv
     dependencies:
-      - library: build/core/libarmame.a
+      - framework: build/core/libarmame.a
+        embed: false
       - sdk: ARKit.framework
       - sdk: SceneKit.framework
       - sdk: Metal.framework
